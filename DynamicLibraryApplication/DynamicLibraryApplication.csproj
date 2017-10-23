@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\EntityTemplate.txt" />
+    <None Include="Resources\StringPropertyMappingTemplate.txt" />
     <None Include="Resources\PropertyTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

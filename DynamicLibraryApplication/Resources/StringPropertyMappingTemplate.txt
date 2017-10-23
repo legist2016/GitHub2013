@@ -1,0 +1,2 @@
+
+            this.Property(l => l.{0}).HasMaxLength({1});

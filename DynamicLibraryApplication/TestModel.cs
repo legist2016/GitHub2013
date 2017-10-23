@@ -4,6 +4,7 @@
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration;
     using System.Linq;
+    using System.Reflection;
 
     public class TestModel : DbContext
     {
@@ -13,9 +14,11 @@
         // 
         //如果您想要针对其他数据库和/或数据库提供程序，请在应用程序配置文件中修改“TestModel”
         //连接字符串。
-        public TestModel()
+        Assembly _assembly = null;
+        public TestModel(Assembly assembly)
             : base("name=TestModel")
         {
+            _assembly = assembly;
         }
 
         //为您要在模型中包含的每种实体类型都添加 DbSet。有关配置和使用 Code First  模型
@@ -25,6 +28,10 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Type type = _assembly.GetType("DynamicEntityBaseLib.NewEntityClassMapping");
+            dynamic instance = Activator.CreateInstance(type);
+            modelBuilder.Configurations.Add(instance);
+
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -35,28 +42,4 @@
     //    public string Name { get; set; }
     //}
 
-    public abstract class BaseDomainMapping<T> : EntityTypeConfiguration<T>
-        where T : BaseDomain, new()
-    {
-
-        public BaseDomainMapping()
-        {
-            Init();
-        }
-
-
-
-
-        /// <summary>
-        /// 初始化代码
-        /// </summary>
-        public virtual void Init()
-        {
-            Console.WriteLine("Init");
-        }
-    }
-
-    public class BaseDomain
-    { 
-    }
 }

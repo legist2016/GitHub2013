@@ -7,4 +7,17 @@ namespace DynamicEntityBaseLib{{
 {2}    
     }}
 
+    public class {0}Mapping : BaseDomainMapping<{0}>
+    {{
+        public override void Init()
+        {{
+            this.ToTable("{0}");
+            this.HasKey(l => l.ID);
+            //this.Property(l => l.Name).HasMaxLength(200).IsRequired();//设置Name属性长度为200 并且是必填
+            //this.Property(l => l.Age).HasMaxLength(200).IsOptional(); //设置Age长度为200 并且可为空
+			//Property Mapping
+{3}
+        }}
+    }}
+
 }}

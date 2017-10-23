@@ -27,15 +27,24 @@ namespace DynamicLibraryApplication
         {
             string ClassName = "NewEntityClass";
             string BaseName = "DynamicEntity";
-            StringBuilder Codes = new StringBuilder();
+            StringBuilder CodeProperties = new StringBuilder();
+            StringBuilder CodePropertMappings = new StringBuilder();
             string CSFile = System.AppDomain.CurrentDomain.BaseDirectory + ClassName + ".cs";
+
             string template = Properties.Resources.StringPropertyTemplate;
-            Codes.AppendFormat(template,  "Name", 20);
-            Codes.AppendFormat(template, "Address", 120);
-            Codes.AppendFormat(template, "Email", 50);
-            Codes.AppendFormat(template, "Tel", 20);
+            CodeProperties.AppendFormat(template,  "Name", 20);
+            CodeProperties.AppendFormat(template, "Address", 120);
+            CodeProperties.AppendFormat(template, "Email", 50);
+            CodeProperties.AppendFormat(template, "Tel", 20);
+
+            template = Properties.Resources.StringPropertyMappingTemplate;
+            CodePropertMappings.AppendFormat(template, "Name", 20);
+            CodePropertMappings.AppendFormat(template, "Address", 120);
+            CodePropertMappings.AppendFormat(template, "Email", 50);
+            CodePropertMappings.AppendFormat(template, "Tel", 20);
+
             template = Properties.Resources.EntityTemplate;
-            string content = string.Format(template, ClassName, BaseName, Codes);
+            string content = string.Format(template, ClassName, BaseName, CodeProperties, CodePropertMappings);
             File.WriteAllText(CSFile ,content );
 
             CompilerResults result = DebugRun(
@@ -97,6 +106,16 @@ namespace DynamicLibraryApplication
             var t = method.ReturnType.Name;
             object[] parameters = new object[] {  };
             var returnResult = Convert.ToString(method.Invoke(null, parameters));
+
+            Type type = assembly.GetType("DynamicEntityBaseLib.NewEntityClass");
+            dynamic instance = Activator.CreateInstance(type);
+            var db = new TestModel(assembly);
+
+            db.Set(type).Add(instance);
+            var c = db.SaveChanges();
+
+            Console.WriteLine("{0} 行被影响。",c);
+
         }
     }
 }

@@ -61,7 +61,8 @@ namespace DynamicLibraryApplication.Properties {
         }
         
         /// <summary>
-        ///   查找类似 
+        ///   查找类似 using System.ComponentModel.DataAnnotations;
+        ///
         ///namespace DynamicEntityBaseLib{{
         ///    public class {0} : {1}
         ///    {{
@@ -69,7 +70,14 @@ namespace DynamicLibraryApplication.Properties {
         ///{2}    
         ///    }}
         ///
-        ///}} 的本地化字符串。
+        ///    public class {0}Mapping : BaseDomainMapping&lt;{0}&gt;
+        ///    {{
+        ///        public override void Init()
+        ///        {{
+        ///            this.ToTable(&quot;{0}&quot;);
+        ///            this.HasKey(l =&gt; l.ID);
+        ///            //this.Property(l =&gt; l.Name).HasMaxLength(200).IsRequired();//设置Name属性长度为200 并且是必填
+        ///            //this.Property(l =&gt; l.Age).HasMaxLength(200).IsOptional(); //设置Ag [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string EntityTemplate {
             get {
@@ -78,7 +86,20 @@ namespace DynamicLibraryApplication.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 
+        ///            this.Property(l =&gt; l.{0}).HasMaxLength({1}); 的本地化字符串。
+        /// </summary>
+        internal static string StringPropertyMappingTemplate {
+            get {
+                return ResourceManager.GetString("StringPropertyMappingTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 
+        ///		[StringLength({1})]
+        ///		public string {0} {{get;set;}}
+        /// 的本地化字符串。
         /// </summary>
         internal static string StringPropertyTemplate {
             get {

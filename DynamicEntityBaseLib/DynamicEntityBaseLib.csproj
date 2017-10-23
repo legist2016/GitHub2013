@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveEntity.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="DynamicEntity.cs" />
     <Compile Include="FileEntity.cs" />
     <Compile Include="FileInArchiveEntity.cs" />
