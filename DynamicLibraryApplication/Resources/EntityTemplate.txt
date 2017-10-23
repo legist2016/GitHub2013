@@ -1,0 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace DynamicEntityBaseLib{{
+    public class {0} : {1}
+    {{
+        //content
+{2}    
+    }}
+
+}}

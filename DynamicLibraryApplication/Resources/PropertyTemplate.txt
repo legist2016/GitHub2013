@@ -1,0 +1,3 @@
+
+		[StringLength({1})]
+		public string {0} {{get;set;}}
